@@ -7,7 +7,7 @@
         <title>摇一摇游戏排行榜</title>
         <link href="file/style.css" rel="stylesheet" type="text/css"/>
     </head>
-    <body onload="init()">
+    <body>
         <div class="ques-section clearfix">
             <div class="ques-section-item">
                 <div class="ques-section-card">
@@ -29,7 +29,7 @@
                             <use xlink:href="#eff" opacity="1" style="mix-blend-mode:normal;"></use>
                         </svg>
                     </div>
-                    <div class="ques-card-title ques-card-title-top">摇一摇排行榜<div class="start" onclick="start()">开始游戏</div></div>
+                    <div class="ques-card-title ques-card-title-top">摇一摇排行榜<div class="start" onclick="init()">开始游戏</div></div>
                     
                     <ul class="ques-card-list">
                         <li class="ques-card-list-noe">
@@ -181,7 +181,7 @@
         </ul>
     </body>
     <script>
-var SHAKE_THRESHOLD = 3000;
+        var SHAKE_THRESHOLD = 3000;
         var last_update = 0;
         var x = y = z = last_x = last_y = last_z = 0;
 		var num = 0;
@@ -236,12 +236,5 @@ var SHAKE_THRESHOLD = 3000;
                 last_z = z;
             }
         }
-		function add(){
-			num++;
-			var node = document.getElementById("ulid");
-			var li=document.createElement("li"); 
-			li.innerText=num;
-			node.appendChild(li);
-		}
     </script>
 </html>
