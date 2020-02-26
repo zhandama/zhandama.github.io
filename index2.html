@@ -1,0 +1,301 @@
+
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>签到</title>
+	<link href="http://dd.ddwul.com/static/web/css/mui.min.css" rel="stylesheet" />
+	<link href="http://dd.ddwul.com/static/web/css/style.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.2/lib/index.css">
+
+	<!-- 弹窗 -->
+	<link href="http://dd.ddwul.com/static/web/css/mui.min.css" rel="stylesheet" />
+	<link href="http://dd.ddwul.com/static/web/css/style.css" rel="stylesheet" />
+	<link href="http://dd.ddwul.com/static/web/css/cz.css" rel="stylesheet" />
+
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vant@2.2/lib/vant.min.js"></script>
+	<!--		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
+	<script type="text/javascript" src="http://dd.ddwul.com/static/web/js/axios.min.js"></script>
+	<script type="text/javascript" src="http://dd.ddwul.com/static/web/layer_mobile/layer.js"></script>
+
+	<!-- 获取地址 -->
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=6yAoynmTPNlTBa8z1X4LfwGE"></script>
+	<script type="text/javascript" src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>
+
+	<style>
+		body{
+			background: #FFFFFF;
+		}
+		.mui-bar-nav~.mui-content{
+			margin-top: 52px;
+			padding-top: 0px;
+		}
+		.mui-content,.mui-bar{
+			background: #fff;;
+		}
+		.q{
+			width: 100%;
+			position: absolute;
+			display: flex;
+			z-index: 999;
+			justify-content: center;
+			top: 100px;
+		}
+		.qd{
+			width:94%;
+			height:330px;
+			background:rgba(255,255,255,1);
+			box-shadow:0px 0px 20px 0px rgba(254,193,86,0.2);
+			border-radius:20px;
+			text-align: center;
+		}
+		.dw{
+			padding: 35px 0;
+		}
+		.dw span{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			line-height: 25px;
+		}
+		.dw span:nth-child(2){
+			font-weight: bold;
+			font-size: 18px;
+			margin-top: 2px;
+		}
+		.dw span img{
+			width: 15px;
+			height: 22px;
+		}
+		.img{
+			width: 90px;
+			padding-top: 40px;
+		}
+
+		/* 弹窗 */
+		.tc{
+			width: 100%;
+			height: 100%;
+			background:rgba(0,0,0,0.4);
+			position: absolute;
+			z-index: 9999;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.mui-content{
+			padding:20% 10%;
+			width: 80%;
+			height: 400px;
+		}
+		.mui-input-group {
+			margin-top: 50px;
+		}
+		.mui-input-group:before{
+			background: #fff;
+		}
+		.mui-input-group:after{
+			background: #fff;
+		}
+		.mui-input-group .mui-input-row:after{
+			left:0px;
+		}
+		.mui-input-group:first-child {
+			margin-top: 20px;
+		}
+		.mui-input-group .mui-input-row{
+			height: 40px;
+		}
+		.mui-input-group label {
+			width: 20%;
+		}
+		.mui-input-row label~input,
+		.mui-input-row label~select,
+		.mui-input-row label~textarea {
+			width: 80%;
+			height: 40px;
+			font-size: 15px;
+		}
+		.mui-content-padded {
+			margin: 40px 0px;
+		}
+		.mui-btn {
+			padding: 10px;
+			border-radius: 50px;
+			background-image: linear-gradient(to right, #FFC75C , #F98715);
+			border: none;
+			background-color: #fff;
+			font-size: 17px;
+		}
+		.link-area {
+			display: block;
+			margin-top: 25px;
+			text-align: center;
+
+		}
+		.link-area a{
+			color:#666666;
+			font-size: 13px;
+		}
+		.spliter {
+			color: #bbb;
+			padding: 0px 8px;
+		}
+		h4{
+			color:#333333;
+			font-size: 18px;
+		}
+		h5{
+			color:#999999;
+			font-size: 11px;
+			line-height: 30px;
+		}
+	</style>
+</head>
+
+<body>
+<div id="sign">
+	<!-- 弹窗 -->
+	
+	<header class="mui-bar mui-bar-nav" style="border:none;">
+		<a class="mui-action-back mui-icon  mui-pull-left" style="color: #666;"></a>
+		<h1 class="mui-title">签到</h1>
+	</header>
+	<img src="http://dd.ddwul.com/static/web/img/d.png" style="width: 100%;" />
+	<div id="app" class="q">
+		<div class="qd">
+			<div class="dw">
+				<span><img style="margin-top: -5px;" src="http://dd.ddwul.com/static/web/img/Location.png" />&nbsp;<span id="dizhi"></span></span>
+				<span>签到时间
+						<span>2020-02-26 13:22:55</span>
+					</span>
+			</div>
+			<img class="img" src="http://dd.ddwul.com/static/web/img/Signin.png" @click="dk" />
+		</div>
+	</div>
+	<div id="show"></div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="http://dd.ddwul.com/static/web/js/vue.min.js"></script>
+<script type="text/javascript" src="http://dd.ddwul.com/static/web/js/axios.min.js"></script>
+<script type="text/javascript" src="http://dd.ddwul.com/static/web/layer_mobile/layer.js"></script>
+<script>
+	var vue=new Vue({
+		el: "#sign",
+		data: {
+			isLogin: "1",
+			phone: '',
+			password: '',
+			address:''
+		},
+		methods: {
+			userLogin() {
+				loginIng(this)
+			},
+			dk() {
+				dkSign(this)
+			},
+
+		},
+	});
+	function dkSign(obj){
+		var load=layer.open({type: 2,shadeClose:false});
+		axios.get("/web/sign/everyday_sign_ing.Sale",{
+			headers:{'X-Requested-With':'XMLHttpRequest'},
+			params: {
+				address:obj.address
+			}
+		}).then(function (res) {
+			layer.close(load);
+			layer.open({
+				content: res.data.msg
+				,style: 'color:#FFC75C;border:none;font-size:1rem'
+				,time: 1
+				,anim: 'up'
+			});
+			if(res.data.code==200){
+				setTimeout(function () {
+					window.location.href=res.data.url;
+				},1500);
+			}else if(res.data.code==205){
+				obj.isLogin=1;
+			}else{
+				layer.open({
+					content: res.data.msg
+					,style: 'color:#FFC75C;border:none;font-size:1rem'
+					,time: 1
+					,anim: 'up'
+				});
+			}
+		}).catch(function (error) {
+			layer.close(load);
+			layer.open({
+				content: '网络错误'
+				,style: 'color:#FFC75C;border:none;font-size:1rem'
+				,time: 1
+				,anim: 'up'
+			});
+		})
+	}
+	function loginIng(obj){
+		var load=layer.open({type: 2,shadeClose:false});
+		axios.get("/web/login/login.Sale",{
+			headers:{'X-Requested-With':'XMLHttpRequest'},
+			params: {
+				phone: obj.phone,
+				password: obj.password,
+			}
+		}).then(function (res) {
+			layer.close(load);
+			if(res.data.code==200){
+				obj.isLogin=2;
+			}else if(res.data.code==205){
+				window.location.href="/web/login/freezing_instructions.Sale";
+			}else{
+				layer.open({
+					content: res.data.msg
+					,style: 'color:#FFC75C;border:none;font-size:1rem'
+					,time: 1
+					,anim: 'up'
+				});
+			}
+		}).catch(function (error) {
+			layer.close(load);
+			layer.open({
+				content: '网络错误'
+				,style: 'color:#FFC75C;border:none;font-size:1rem'
+				,time: 1
+				,anim: 'up'
+			});
+		})
+	}
+  </script>
+  <script>
+	var geolocation = new BMap.Geolocation();
+	geolocation.getCurrentPosition(function (r) {
+		if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+			currentLat = r.point.lat;
+			currentLon = r.point.lng;
+			var pt = new BMap.Point(currentLon, currentLat);
+			var geoc = new BMap.Geocoder();
+			geoc.getLocation(pt, function (rs) {
+				var addComp = rs.addressComponents;
+				var city = addComp.city;
+				var texts = addComp.district + addComp.street + addComp.streetNumber;
+				dizhi.innerHTML=texts;
+				vue.address=city+texts;
+			});
+		}else {
+			layer.open({
+				content:'获取位置信息失败'
+				,style: 'color:#FFC75C;border:none;font-size:1rem'
+				,time: 1
+				,anim: 'up'
+			});
+		}
+	});
+</script>
