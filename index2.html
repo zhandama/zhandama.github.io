@@ -280,6 +280,7 @@
 		if (this.getStatus() == BMAP_STATUS_SUCCESS) {
 			currentLat = r.point.lat;
 			currentLon = r.point.lng;
+			alert(JSON.stringify(r.point))
 			var pt = new BMap.Point(currentLon, currentLat);
 			var geoc = new BMap.Geocoder();
 			geoc.getLocation(pt, function (rs) {
