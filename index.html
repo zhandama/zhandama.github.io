@@ -165,14 +165,18 @@
             for(let i in list) {
                 if (num>list[i].num) {
                     list.splice(i,{"name":"你","num":num,"img":"https://a.msstatic.com/huya/main3/static/img/logo.png"})
-                    return
+                    break
                 }
             }
+            goList()
         }
-        window.onload = function(){ // 页面加载完成循环排名数组
+        function goList() {
             for(let i=0;i<10;i++) {
                 appendHtml(list[i],i)
             }
+        }
+        window.onload = function(){ // 页面加载完成循环排名数组
+            goList()
         }
     </script>
 </html>
