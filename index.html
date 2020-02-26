@@ -2,15 +2,17 @@
     <head>
         <meta charset="utf-8" />
         <meta id="viewport" name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1; user-scalable=no;"> 
-        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=6yAoynmTPNlTBa8z1X4LfwGE"></script>
-        <script type="text/javascript" src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>
+        <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=6yAoynmTPNlTBa8z1X4LfwGE"></script>
+        <script type="text/javascript" src="https://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>
     <body>
         <div id="dizhi"></div>   
     </body>
     <script>   
         var geolocation = new BMap.Geolocation();
         geolocation.getCurrentPosition(function (r) {
+			console.log(r)
             if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+				console.log(r)
                 currentLat = r.point.lat;
                 currentLon = r.point.lng;
                 var pt = new BMap.Point(currentLon, currentLat);
