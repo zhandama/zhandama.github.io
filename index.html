@@ -1,36 +1,97 @@
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <meta id="viewport" name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1; user-scalable=no;"> 
-        <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=6yAoynmTPNlTBa8z1X4LfwGE"></script>
-        <script type="text/javascript" src="https://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>
-    <body>
-        <div id="dizhi"></div>   
-    </body>
-    <script>   
-        var geolocation = new BMap.Geolocation();
-        geolocation.getCurrentPosition(function (r) {
-			console.log(r)
-            if (this.getStatus() == BMAP_STATUS_SUCCESS) {
-				console.log(r)
-                currentLat = r.point.lat;
-                currentLon = r.point.lng;
-                var pt = new BMap.Point(currentLon, currentLat);
-                var geoc = new BMap.Geocoder();
-                geoc.getLocation(pt, function (rs) {
-                    var addComp = rs.addressComponents;
-                    var city = addComp.city;
-                    var addComp = rs.addressComponents;
-                    var texts = addComp.district + "-" + addComp.street + "-" + addComp.streetNumber;
-                    //alert(texts);
-					dizhi.innerHTML=texts;
-                });
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>摇一摇</title>
+	<style>
+	li{
+		color:#3300FF;
+		font-size:24px
+	}
+	p{
+		font-size:36px;
+	}
+	</style>
+	<script type="text/javascript">
+		var SHAKE_THRESHOLD = 3000;
+        var last_update = 0;
+        var x = y = z = last_x = last_y = last_z = 0;
+		var num = 0;
+		var isprint = false;
+        function init() {
+            if (window.DeviceMotionEvent) {
+                window.addEventListener('devicemotion', deviceMotionHandler, false);
+            } else {
+                alert('not support mobile event');
             }
-        });
-        
-    </script>
-    <style>
+        }
+        function deviceMotionHandler(eventData) {
+            var acceleration = eventData.accelerationIncludingGravity;
+            var curTime = new Date().getTime();
+            if ((curTime - last_update) > 100) {
+                var diffTime = curTime - last_update;
+                last_update = curTime;
+                x = acceleration.x;
+                y = acceleration.y;
+                z = acceleration.z;
+                var speed = Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000;
+ 
+                /*if (speed < SHAKE_THRESHOLD) {
+					num++;
+                    var node = document.getElementById("text");
+					node.innerHTML=num+"times";
+                   
+					num==0;
+                }
+				*/
+				var x1 = Math.abs(x-last_x);
+				var y1 = Math.abs(y-last_y);
+				var z1 = Math.abs(z-last_z);
+				var max =0;
+				if(x1>y1){
+					if(x1>z1){
+						max=x1;
+					}else{
+						max=z1;
+					}
+				}else {
+					if(y1>z1){
+						max=y1;
+					}else{
+						max=z1;
+					}
+				}
+				if(max>40){
+					isprint=true;
+					num++;
+				}else if(max<5&&isprint){
+					var node = document.getElementById("ulid");
+					var li=document.createElement("li"); 
+					li.innerText=num;
+					node.appendChild(li);
+					num=0;
+					isprint=false;
+				}
+                last_x = x;
+                last_y = y;
+                last_z = z;
+            }
+        }
+		function add(){
+			num++;
+			var node = document.getElementById("ulid");
+			var li=document.createElement("li"); 
+			li.innerText=num;
+			node.appendChild(li);
+		}
+	</script>
+</head>
 
-    </style>
+<body onload="init()">
+<p >用力摇一摇你手机</p>
+<ul id="ulid" type="circle" style="list-style:none">
+</ul>
 
+</body>
 </html>
