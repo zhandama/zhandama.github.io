@@ -41,7 +41,7 @@
             <div id="cont">
                 <div id="close" onclick="hide()">X</div>
                 <p>现在开始倒计时(<span id="time"></span>)</p>
-                <img src="file/yao.png">
+                <img src="file/yao.png" width="95%">
                 <p class="numcont">你摇动了<span id="num">0</span>下</p>
             </div>
             <div id="mask">&nbsp;</div>
@@ -164,20 +164,24 @@
                 '</li>'
             document.getElementById("list").innerHTML = html
         }
+        var self = false
         function playend() { //摇完重新排列数组
             for(let i in list) {
-                if (num>list[i].num && list[i].name!='你') {  // 自己摇动的数据添加到列表，判断有没有自己
-                    list.splice(i,0,{"name":"你","num":num,"img":"https://huyaimg.msstatic.com/avatar/1039/41/fcc23f46896c698ac2b159c6bf51d4_180_135.jpg"})
+                if (num>list[i].num&&!self) {  // 自己摇动的数据添加到列表，判断有没有自己
+                    list.splice(i,0,{"name":"你","num":num,"img":"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3770990833,1013306388&fm=26&gp=0.jpg"})
                     break
                 }
-                if (list[i].name=='你') { // 替换自己的数据
-                    list.splice(i,1,{"name":"你","num":num,"img":"https://huyaimg.msstatic.com/avatar/1039/41/fcc23f46896c698ac2b159c6bf51d4_180_135.jpg"})
+                if (self) { // 替换自己的数据
+                    list.splice(i,1,{"name":"你","num":num,"img":"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3770990833,1013306388&fm=26&gp=0.jpg"})
                 }
             }
             goList()
         }
         function goList() {
             for(let i=0;i<10;i++) {
+                if (list[i].name=='你') {
+                    self = true
+                }
                 appendHtml(list[i],i)
             }
         }
