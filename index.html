@@ -79,6 +79,9 @@
 
         }
         function deviceMotionHandler(eventData) { // 摇一摇方法
+            if (time==0) {
+                return
+            }
             var acceleration = eventData.accelerationIncludingGravity;
             var curTime = new Date().getTime();
             if ((curTime - last_update) > 100) {
@@ -117,7 +120,6 @@
         }
         function hide () { // 隐藏弹窗
             isprint=false
-            time = 10
             clearInterval(countDown)
             document.getElementById("popup").style.display = 'none'
         }
