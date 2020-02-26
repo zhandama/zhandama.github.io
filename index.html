@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>test</title>
+</head>
+ 
+<body>
+    <div id="demo" style="width:200px;height:50px;border:1px solid black;"></div>
+    <script>
+        var x = document.getElementById("demo");
+ 
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+ 
+        function showPosition(position) {
+            console.log(111);
+            x.innerHTML = "Latitude: " + position.coords.latitude +
+                "<br />Longitude: " + position.coords.longitude;
+        }
+ 
+        function showError(error) {
+            console.log(error);
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    x.innerHTML = "User denied the request for Geolocation."//code == 1 用户拒绝
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    x.innerHTML = "Location information is unavailable."//code == 2 无法获取
+                    break;
+                case error.TIMEOUT:
+                    x.innerHTML = "The request to get user location timed out."//code == 3 请求超时
+                    break;
+                case error.UNKNOWN_ERROR:
+                    x.innerHTML = "An unknown error occurred." //一个未知的错误
+                    break;
+            }
+        }
+        var options = {
+            enableHighAccuracy: true,//是否获取更精确的位置
+            timeout: 6000,//请求超时时间,单位ms；
+        }
+        window.navigator.geolocation.getCurrentPosition(showPosition, showError, options);
+    </script>
+</body>
+ 
+</html>
