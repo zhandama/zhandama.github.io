@@ -176,7 +176,13 @@
                 </div>
             </div>
         </div>
-1111111----------
+        <div id="popup">
+            <div id="cont">
+                <p>现在开始倒计时(<span id="time">30</span>)</p>
+                <img src="file/yao.png" width="50%">
+            </div>
+            <div id="mask">&nbsp;</div>
+        </div>
         <ul id="ulid" type="circle" style="list-style:none">
         </ul>
     </body>
@@ -185,13 +191,16 @@
         var last_update = 0;
         var x = y = z = last_x = last_y = last_z = 0;
 		var num = 0;
-		var isprint = false;
+        var isprint = false;
+        var time = 10
         function init() {
+            show()
             if (window.DeviceMotionEvent) {
                 window.addEventListener('devicemotion', deviceMotionHandler, false);
             } else {
                 alert('not support mobile event');
             }
+
         }
         function deviceMotionHandler(eventData) {
             var acceleration = eventData.accelerationIncludingGravity;
@@ -223,18 +232,29 @@
 				if(max>40){
 					isprint=true;
 					num++;
-				}else if(max<5&&isprint){
-					var node = document.getElementById("ulid");
-					var li=document.createElement("li"); 
-					li.innerText=num;
-					node.appendChild(li);
-					num=0;
-					isprint=false;
 				}
                 last_x = x;
                 last_y = y;
                 last_z = z;
             }
         }
+        function hide () {
+            document.getElementById("popup").style.display = 'none'
+        }
+        function show () {
+            countDown
+            document.getElementById("popup").style.display = 'block'
+        }
+        var countDown = setInterval(function(){
+            if (time>0) {
+                time--
+                document.getElementById("time").innerHTML = time
+            } else {
+                alert('你摇动了'+num+'下')
+                time = 10
+                isprint=false;
+                clearInterval(countDown)
+            }
+        },1000)
     </script>
 </html>
