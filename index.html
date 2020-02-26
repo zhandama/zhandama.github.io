@@ -104,7 +104,7 @@
 						max=z1;
 					}
 				}
-				if(max>40){
+				if(max>40&&time!=0){
 					isprint=true;
                     num++;
                     document.getElementById("num").innerHTML = num
@@ -128,7 +128,6 @@
                     time--
                     document.getElementById("time").innerHTML = time
                 } else {
-                    time = 10
                     isprint=false;
                     clearInterval(countDown)
                 }
