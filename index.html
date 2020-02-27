@@ -171,8 +171,9 @@
                     list.splice(i,0,{"name":"你","num":num,"img":"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3770990833,1013306388&fm=26&gp=0.jpg"})
                     break
                 }
-                if (self) { // 替换自己的数据
+                if (list[i].num=='你'&&self) { // 替换自己的数据
                     list.splice(i,1,{"name":"你","num":num,"img":"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3770990833,1013306388&fm=26&gp=0.jpg"})
+                    break
                 }
             }
             goList()
