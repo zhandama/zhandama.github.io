@@ -391,6 +391,7 @@ a:hover {
 #popup #cont{background: #fff;text-align: center;margin:130px 50px;border-radius: 10px;padding:15px 20px 20px 20px}
 #popup #cont p{line-height: 50px;}
 .numcont {padding-top:10px}
+#bnt{margin:auto;background:#ff6600;font-size:14px;padding:7px 8px;border-radius: 4px;width:140px;color:#fff;display: none;}
 
 #close{font-size: 16px;position: absolute;right:65px;padding:5px}
 #mask{position:fixed;width: 100%;height: 100%;top:0;z-index:-1;background: #000;opacity: 0.5;width: 100%;height: 100%;}

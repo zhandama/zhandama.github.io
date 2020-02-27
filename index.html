@@ -41,8 +41,9 @@
             <div id="cont">
                 <div id="close" onclick="hide()">X</div>
                 <p>现在开始倒计时(<span id="time"></span>)</p>
-                <img src="file/yao.png" width="95%">
+                <img src="file/yao.png" width="80%">
                 <p class="numcont">你摇动了<span id="num">0</span>下</p>
+                <div id="bnt" onclick="hide()">确定</div>
             </div>
             <div id="mask">&nbsp;</div>
         </div>
@@ -136,6 +137,7 @@
                 } else {
                     isprint=false;
                     playend()
+                    document.getElementById("bnt").style.display = 'block'
                     clearInterval(countDown)
                 }
             },1000)
@@ -188,6 +190,7 @@
         }
         window.onload = function(){ // 页面加载完成循环排名数组
             goList()
+            
         }
     </script>
 </html>
